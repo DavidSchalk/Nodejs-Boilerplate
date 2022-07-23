@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Boilerplate API
+  description: Boilerplace api documentation
+  
+paths:
+  /healthy:
+    get:
+      summary: Healty endpoint
+      description: Get the healthy endpoint
+      tags:
+        - Healthy
+      x-handler: "/handlers/health.js"
+      x-noauth: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+
+  /register:
+    post:
+      summary: Register endpoint
+      description: Register a new user.
+      x-handler: "/handlers/register.js"
+      x-noauth: true
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /login:
+    post:
+      summary: Login endpoint
+      description: Login and retrieve a valid jwt token.
+      x-handler: "/handlers/login.js"
+      x-noauth: true
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      
+  /refresh-token:
+    post:
+      summary: Refresh your access token
+      description: Refresh your access token
+      x-handler: "/handlers/refreshToken.js"
+      x-noauth: true
+      tags:
+        - Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /user/{email}:
+    get:
+      summary: Retrieve user by email
+      description: Retrieve user by email, token required
+      x-handler: "/handlers/getUser.js"
+      x-roles: 'user'
+      tags:
+        - User
+      parameters:
+      - name: email
+        in: path
+        description: email of the user
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+components:
+  schemas:
+    HealthStatus:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        fields:
+          type: string
+    Message:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    Login:
+      required:
+        - user
+        - tokens
+      properties:
+        user:
+          type: object
+          properties:
+            schema:
+              $ref: '#/components/schemas/User'
+        tokens:
+          type: object
+          properties:
+            schema:
+              $ref: '#/components/schemas/Tokens'
+    User:
+      required:
+        - user
+      properties:
+        user:
+          type: object
+          properties:
+            firstname:
+              type: string  
+            lastname:
+              type: string    
+    Tokens:
+      required:
+        - access
+        - refresh
+      properties:
+        access:
+          type: object
+          properties:
+            token:
+              type: string  
+            expiresIn:
+              type: string
+        refresh:
+          type: object
+          properties:
+            token:
+              type: string  
+            expiresIn:
+              type: string 

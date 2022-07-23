@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run" , "start"
+            ],
+            "console":"integratedTerminal",
+            "env" : {
+                "NODE_ENV": "development",
+                "PORT" : "3000",
+                "JWT_SECRET" :"demo", 
+                "JWT_AUDIENCE" :"demo", 
+                "JWT_ISSUER" :"demo", 
+                "JWT_ACCESS_EXPIRATION_MINUTES" : "2",
+                "JWT_REFRESH_EXPIRATION_DAYS" : "3"
+            }
+        }
+    ]
+}
