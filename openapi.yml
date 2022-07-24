@@ -156,6 +156,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+      
+  /example-https:
+    post:
+      summary: Example http call
+      description: Example http call
+      x-handler: "/handlers/httpExample.js"
+      x-noauth: true
+      tags:
+        - Http
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
 
 components:
   schemas:

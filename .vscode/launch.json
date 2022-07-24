@@ -22,6 +22,28 @@
                 "JWT_ACCESS_EXPIRATION_MINUTES" : "2",
                 "JWT_REFRESH_EXPIRATION_DAYS" : "3"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Test Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run" , "test"
+            ],
+            "console":"integratedTerminal",
+            "env" : {
+                "NODE_ENV": "development",
+                "PORT" : "3000",
+                "JWT_SECRET" :"demo", 
+                "JWT_AUDIENCE" :"demo", 
+                "JWT_ISSUER" :"demo", 
+                "JWT_ACCESS_EXPIRATION_MINUTES" : "2",
+                "JWT_REFRESH_EXPIRATION_DAYS" : "3"
+            }
         }
     ]
 }

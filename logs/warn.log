@@ -22,3 +22,5 @@ ERROR | Fri Jul 22 2022 22:17:00 GMT+0200 (South Africa Standard Time) | jwt/gen
 ERROR | Fri Jul 22 2022 22:17:02 GMT+0200 (South Africa Standard Time) | jwt/generateAccessToken | {} 
 WARN | Fri Jul 22 2022 22:20:55 GMT+0200 (South Africa Standard Time) | jwt/verifyAccessToken | {"name":"TokenExpiredError","message":"jwt expired","expiredAt":"2022-07-22T20:20:53.000Z"} 
 WARN | Fri Jul 22 2022 22:20:57 GMT+0200 (South Africa Standard Time) | jwt/verifyAccessToken | {"name":"TokenExpiredError","message":"jwt expired","expiredAt":"2022-07-22T20:20:53.000Z"} 
+ERROR | Sun Jul 24 2022 12:10:27 GMT+0200 (South Africa Standard Time) | jwt/generateAccessToken | {} 
+ERROR | Sun Jul 24 2022 12:11:28 GMT+0200 (South Africa Standard Time) | jwt/generateAccessToken | {} 

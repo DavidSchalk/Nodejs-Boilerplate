@@ -8,6 +8,10 @@ const validate = (req, schema, code = null) => {
 
   const params = {};
   Object.keys(validSchemas).map(item => {
+
+    if(!object[item]) {
+      object[item] = {}
+    }
     const { value, error } = validSchemas[item].validate(object[item], { abortEarly: false });
     if (error) {
       throw new ErrorValidation(error.details.map(item =>  item.message.replace(new RegExp('"','g'),""), code));

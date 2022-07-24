@@ -11,6 +11,8 @@ import logger from '../logger';
  */
 const generateAccessToken = (data, roles = []) => {
     try {
+
+        const newData = JSON.parse(JSON.stringify(data));
         const audience = config.jwt.audience;
         const issuer = config.jwt.issuer;
         const jwtSecret = config.jwt.secret;
@@ -19,7 +21,7 @@ const generateAccessToken = (data, roles = []) => {
         const expiresIn = `${config.jwt.accessExperation} minutes`;
 
         // Add the roles to the data
-        data.roles = roles;
+        newData.roles = roles;
 
         const token = jwt.sign(data, jwtSecret, 
             {
@@ -74,6 +76,7 @@ const verifyAccessToken = (token) => {
  */
 const generateRefreshToken = (data) => {
     try {
+        const newData = JSON.parse(JSON.stringify(data));
         const audience = config.jwt.audience;
         const issuer = config.jwt.issuer;
         const jwtSecret = config.jwt.secret;
@@ -81,7 +84,7 @@ const generateRefreshToken = (data) => {
         const tokenType = 'refresh';
         const expiresIn = `${config.jwt.refreshExperation} days`;
 
-        const token = jwt.sign(data, jwtSecret, 
+        const token = jwt.sign(newData, jwtSecret, 
             { 
                 expiresIn: expiresIn,
                 audience,
